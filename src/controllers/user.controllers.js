@@ -67,6 +67,14 @@ const logged = catchError(async(req, res)=> {
     return res.json(user)
 });
 
+const setPosts = catchError(async(req,res)=>{
+    const { id }= req.params;
+    const user=await User.findByPk(id)
+    await user.setPosts(req.body)
+    const posts = await user.getPosts()
+    return res.json(posts) 
+});
+
 module.exports = {
     getAll,
     create,
@@ -74,5 +82,6 @@ module.exports = {
     remove,
     update,
     login,
-    logged
+    logged,
+    setPosts
 }
